@@ -1,21 +1,26 @@
-📄 Ahmet Ulucay Drag-and-Carry Multiplication Algorithm (AUD&CMA)
+📄 Ahmet Ulucay Drag-and-Carry Multiplication Algorithm version 1 (AUD-CMA-v1)
 
 Abstract:
-The Ahmet Ulucay Drag-and-Carry Multiplication Algorithm (AUD&CMA) is a digit-based multiplication technique that decomposes any base-10 multiplication into a series of digit-wise scalar multiplications, symmetrical zero-padding, sliding-window summation, and a specialized carry-forward mechanism. The leftmost digit is preserved in its complete form while all others are reduced to single digits through a cascading carry operation.
+AUD-CMA-v1 is a digit-based multiplication technique that decomposes any base-10 multiplication into 
+a series of digit-wise scalar multiplications, symmetrical zero-padding, sliding-window summation, 
+and a specialized carry-forward mechanism. The leftmost digit is preserved in its complete form while 
+all others are reduced to single digits through a cascading carry operation.
 
 1. Technical Field
-This algorithm relates to the field of arithmetic computation, digital signal processing, and efficient multiplication techniques suitable for low-complexity processors, educational tools, and novel computing architectures.
+This algorithm relates to the field of arithmetic computation, digital signal processing, and efficient 
+multiplication techniques suitable for low-complexity processors, educational tools, and novel computing architectures.
 
 2. Background
 Traditional long multiplication or Karatsuba’s algorithm involves complex digit placement and recursive logic. 
-AUD&CMA simplifies this by using consistent padding and a structured window summation, offering advantages in clarity, implementation, and pedagogical use.
+AUD-CMA-v1 simplifies this by using consistent padding and a structured window summation, offering advantages 
+in clarity, implementation, and pedagogical use.
 
 3. Summary of the Invention
 The invention introduces:
 * A digit-wise multiplication method
 * Zero-padding based on a digit-length parameter `k`
 * A sliding window of size `k` across a padded digit list
-* A drag-and-carry mechanism that enforces single-digit output except at the 'leftmost position' (Note-1)
+* A drag-and-carry mechanism that enforces single-digit output except at the 'leftmost position' (Note-1, below)
 
 4. Algorithm Description
 Inputs:
@@ -26,7 +31,7 @@ Inputs:
 
 Process:
 1. Decompose `n` into digits and multiply each by `m`
-2. Pad `(k−1)` zeros on both left and right (Note-2)
+2. Pad `(k−1)` zeros on both left and right (Note-2, below)
 3. Slide a window of size `k` across the padded list
 4. Sum each window to get intermediate results
 5. Apply drag-and-carry from right to left, preserving the leftmost digit in full form
@@ -51,7 +56,7 @@ All other values must be reduced to *single digits* (unit digit only).
 If a value is a multiple of 10 or greater, the tens digit is carried to the immediate left digit.
 
 2.The step of padding a digit list with k - 1 zeros on both the left and right ends in preparation 
-for digit-wise summation within the AUD&CMA (Ahmet Ulucay Drag-and-Carry Multiplication Algorithm) 
-is an original innovation. While it draws conceptual inspiration from zero-padding in convolution operations 
-used in digital signal processing and polynomial multiplication, this specific rule is not present in 
-classical multiplication algorithms and contributes a novel structural step to integer multiplication methodologies.
+for digit-wise summation within the AUD-CMA-v1 is an original innovation. While it draws conceptual 
+inspiration from zero-padding in convolution operations used in digital signal processing and polynomial 
+multiplication, this specific rule is not present in classical multiplication algorithms and contributes 
+a novel structural step to integer multiplication methodologies.
