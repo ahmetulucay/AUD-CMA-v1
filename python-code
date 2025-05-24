@@ -1,4 +1,4 @@
-# Ahmet Ulucay Drag-and-Carry Multiplication Algorithm (AUD&CMA)
+# Ahmet Ulucay Drag-and-Carry Multiplication Algorithm v1 (AUD-CMA-v1)
 
 def audcma(n: int, b: int) -> int:
     """
