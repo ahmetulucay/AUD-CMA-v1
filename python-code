@@ -1,43 +1,26 @@
 # Ahmet Ulucay Drag-and-Carry Multiplication Algorithm v1 (AUD-CMA-v1)
 
-def audcma(n: int, b: int) -> int:
-    """
-    Multiply an integer `n` by a repeating-digit multiplier `b` using
-    the Drag-and-Carry Multiplication Algorithm.
+def audcma_v1(n_str, b_str):
+    n = [int(d) for d in n_str]
+    base_digit = int(b_str[0])  # e.g., 2 from "222"
 
-    Args:
-        n (int): The number to multiply (e.g. 547)
-        b (int): A multiplier of the form m * (10^k - 1) // 9 (e.g. 222)
+    # Step 1: Multiply each digit by the base digit
+    result = [d * base_digit for d in n]
 
-    Returns:
-        int: The final result after applying drag-and-carry
-    """
-    # Step 1: Extract base multiplier m and window size k
-    b_str = str(b)
+    # Step 2: Pad with (len(b_str)-1) zeros on both sides
     k = len(b_str)
-    m = int(b_str[0])  # assumes b is like 222, 3333, etc.
+    padded = [0] * (k - 1) + result + [0] * (k - 1)
 
-    # Step 2: Multiply each digit of n by m
-    n_digits = [int(d) * m for d in str(n)]
+    # Step 3: Perform drag-and-carry from right to left
+    output = []
+    carry = 0
+    for i in range(len(padded) - 1, -1, -1):
+        val = padded[i] + carry
+        if i == k - 1:
+            output.append(val)  # preserve leftmost as-is
+        else:
+            output.append(val % 10)
+            carry = val // 10
 
-    # Step 3: Pad with (k-1) zeros on both sides
-    pad = [0] * (k - 1)
-    padded = pad + n_digits + pad
-
-    # Step 4: Sliding window summation
-    windows = [sum(padded[i:i+k]) for i in range(len(padded) - k + 1)]
-
-    # Step 5: Apply Drag-and-Carry (right to left)
-    result = windows[:]
-    for i in reversed(range(1, len(result))):
-        carry = result[i] // 10
-        result[i] %= 10
-        result[i - 1] += carry
-
-    # Step 6: Flatten result
-    return int(''.join(str(x) for x in result))
-
-
-# Optional test case
-if __name__ == "__main__":
-    print("547 × 222 =", audcma(547, 222))  # Should print: 121434
+    output.reverse()
+    return int(''.join(map(str, output)))
